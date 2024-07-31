@@ -6,7 +6,7 @@
         <p><strong>Location:</strong> {{ job.job_location }}</p>
         <p><strong>Salary:</strong> <span v-if="job.salary !== null">${{ job.salary }}</span></p>
         <p><strong>Relevance to PHP:</strong> {{ job.relevance_to_php_developer }}</p>
-        <p><strong>Posted Date:</strong> {{ new Date(job.posted_date).toLocaleDateString() }}</p>
+        <p><strong>Posted Date:</strong> {{ new Date(job.post_date).toLocaleDateString() }}</p>
         <p><strong>URL:</strong> <a :href="job.url" class="text-blue-500">{{ job.url }}</a></p>
         <h2 class="text-xl font-semibold mt-4">Requirements</h2>
         <ul class="list-disc list-inside">
@@ -17,7 +17,7 @@
   </template>
   
   <script>
-  import axios from 'axios';
+  import apiClient from '../api/axios';
   
   export default {
     data() {
@@ -33,7 +33,7 @@
       async fetchJob() {
         this.loading = true;
         try {
-          const response = await axios.get(`http://192.168.56.56:5000/api/jobs/${this.$route.params.id}`);
+          const response = await apiClient.get(`/jobs/${this.$route.params.id}`);
           this.job = response.data;
         } catch (error) {
           console.error(error);
