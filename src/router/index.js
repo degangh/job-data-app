@@ -7,10 +7,9 @@ const routes = [
   { path: '/job/:id', component: JobDetail, props: true },
 ];
 
-const subfolder = '/jobs/';
 
 const router = createRouter({
-  history: createWebHistory(subfolder),
+  history: createWebHistory(),
   routes,
 });
 
