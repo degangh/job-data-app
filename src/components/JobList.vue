@@ -26,7 +26,7 @@
               class="border rounded px-2 py-1"
             >
               <option value="">All</option>
-              <option v-for="c in channels" :key="c" :value="c">{{ c }}</option>
+              <option v-for="n in 5" :key="n" :value="n">{{ n }}</option>
             </select>
           </div>
           <div class="flex items-center">
