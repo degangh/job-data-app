@@ -20,8 +20,8 @@
           <h1 class="text-3xl font-bold mb-4 text-gray-800">{{ job.job_title }}</h1>
           <div class="space-y-3">
             <p><span class="font-semibold text-gray-600">Location:</span> {{ job.job_location }}</p>
-            <p><span class="font-semibold text-gray-600">Salary:</span> <span v-if="job.salary !== null">{{ job.salary }}</span></p>
-            <p><span class="font-semibold text-gray-600">Relevance to PHP:</span> {{ job.relevance_to_php_developer }}</p>
+            <p><span class="font-semibold text-gray-600">Salary:</span> <span v-if="job.salary !== null">{{ job.salary }}</span> <span v-else>N/A</span></p>
+            <p><span class="font-semibold text-gray-600">Relevance:</span> {{ job.relevance_to_search }}</p>
             <p><span class="font-semibold text-gray-600">Posted Date:</span> {{ formattedDate }}</p>
             <p><span class="font-semibold text-gray-600">URL:</span> 
               <a :href="job.url" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline">{{ job.url }}</a>
