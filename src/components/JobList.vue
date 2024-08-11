@@ -147,6 +147,13 @@ export default {
       immediate: true
     }
   },  
+  created() {
+  const { relevance, job_location, channel } = this.$route.query;
+  this.relevance = relevance || '';
+  this.job_location = job_location || '';
+  this.channel = channel || '';
+  this.fetchJobs();
+},
   methods: {
     async fetchJobs() {
       this.loading = true;
