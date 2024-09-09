@@ -22,6 +22,7 @@
             <p><span class="font-semibold text-gray-600">Location:</span> {{ job.job_location }}</p>
             <p><span class="font-semibold text-gray-600">Salary:</span> <span v-if="job.salary !== null">{{ job.salary }}</span> <span v-else>N/A</span></p>
             <p><span class="font-semibold text-gray-600">Relevance:</span> {{ job.relevance_to_search }}</p>
+            <p><span class="font-semibold text-gray-600">Channel:</span> {{ job.channel }}</p>
             <p><span class="font-semibold text-gray-600">Search Hit:</span> {{ job.search_hit }}</p>
             <p><span class="font-semibold text-gray-600">Posted Date:</span> {{ formattedDate }}</p>
             <p><span class="font-semibold text-gray-600">URL:</span> 
