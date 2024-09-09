@@ -57,7 +57,7 @@
             <p class="text-gray-600 mb-1"><i class="fas fa-star mr-2"></i>Search: {{ job.channel }}</p>
             <p class="text-gray-600 mb-1"><i class="fas fa-globe mr-2"></i>Allow Remote: {{ job.if_remote_possible }}
             </p>
-            <p class="text-gray-600 mb-1"><i class="fas fa-globe mr-2"></i>Search Hit: {{ job.search_hit }}
+            <p class="text-gray-600 mb-1"><i class="fas fa-bullseye mr-2"></i>Search Hit: {{ job.search_hit }}
             </p>
             <p class="text-gray-600"><i class="fas fa-calendar-alt mr-2"></i>Posted: {{ formatDate(job.post_date) }}</p>
           </div>
