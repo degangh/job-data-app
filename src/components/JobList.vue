@@ -179,7 +179,7 @@ export default {
         relevance: relevance.value,
         job_location: job_location.value,
         channel: channel.value,
-        keywords: keyword.value,
+        keyword: keyword.value,
         page: 1,
       });
     };
