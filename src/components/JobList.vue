@@ -29,7 +29,7 @@
           </div>
 
           <div class="flex items-center">
-            <label for="job_location" class="mr-3">Location</label>
+            <label for="keyword" class="mr-3">Search</label>
             <input type="text" id="keyword" v-model="keyword" @input="throttledSearch" class="border rounded px-2 py-1">
           </div>
           
