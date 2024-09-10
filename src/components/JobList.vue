@@ -4,6 +4,7 @@
       <h1 class="text-3xl font-bold mb-6 text-gray-800">Job Listings</h1>
 
       <div class="mb-6 bg-white p-4 rounded-lg shadow-md">
+        <div class="flex justify-between items-center">
         <div class="flex flex-wrap items-center gap-4">
           <div class="flex items-center">
             <label for="channel" class="mr-3">Channel</label>
@@ -26,10 +27,19 @@
               <option v-for="state in states" :key="state" :value="state">{{ state }}</option>
             </select>
           </div>
+
+          <div class="flex items-center">
+            <label for="job_location" class="mr-3">Location</label>
+            <input type="text" id="keyword" v-model="keyword" @input="throttledSearch" class="border rounded px-2 py-1">
+          </div>
+          
+        </div>
+        <div class="flex">
           <div class="flex items-center">
             <label for="channel" class="mr-3">Total Jobs</label>
             {{ totalJobs }}
           </div>
+        </div>
         </div>
       </div>
 
@@ -100,7 +110,10 @@ export default {
     const relevance = ref('');
     const job_location = ref('');
     const channel = ref('');
+    const keyword = ref('');
     const totalJobs = ref('loading');
+
+    let searchTimeout = null;
 
     const { proxy } = getCurrentInstance();
 
@@ -113,6 +126,15 @@ export default {
       },
     });
 
+    const throttledSearch = () => {
+      if (searchTimeout) {
+        clearTimeout(searchTimeout);
+      }
+      searchTimeout = setTimeout(() => {
+        applyFilter();
+      }, 300); // 300ms delay
+    };
+
     const fetchJobs = async () => {
       loading.value = true;
       try {
@@ -121,6 +143,7 @@ export default {
           relevance: relevance.value,
           job_location: job_location.value,
           channel: channel.value,
+          keyword: keyword.value,
         });
 
         const response = await apiClient.get(`/jobs?${params.toString()}`);
@@ -156,6 +179,7 @@ export default {
         relevance: relevance.value,
         job_location: job_location.value,
         channel: channel.value,
+        keywords: keyword.value,
         page: 1,
       });
     };
@@ -167,11 +191,12 @@ export default {
     };
 
     onMounted(() => {
-      const { relevance: rel, job_location: loc, channel: chan, page: p } = proxy.$route.query;
+      const { relevance: rel, job_location: loc, channel: chan, page: p, keyword: k } = proxy.$route.query;
       relevance.value = rel || '';
       job_location.value = loc || '';
       channel.value = chan || '';
       page.value = p || 1;
+      keyword.value = k || '';
       fetchJobs();
     });
 
@@ -198,6 +223,9 @@ export default {
       formatDate,
       applyFilter,
       updateQuery,
+      keyword,
+      throttledSearch,
+      applyFilter,
     };
   },
 };
