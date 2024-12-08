@@ -1,1 +1,10 @@
+# Production
+/dist
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Other existing entries...
 /node_modules
