@@ -4,7 +4,7 @@
       <h1 class="text-3xl font-bold mb-6 text-gray-800">Job Listings</h1>
 
       <div class="mb-6 bg-white p-4 rounded-lg shadow-md">
-        <div class="flex justify-between items-center">
+        <div class="flex flex-wrap justify-between items-center">
         <div class="flex flex-wrap items-center gap-4">
           <div class="flex items-center">
             <label for="if_remote_possible" class="mr-3">Remote</label>
@@ -36,7 +36,7 @@
           
         </div>
         <div class="flex">
-          <div class="flex items-center">
+          <div class="w-full sm:w-auto flex items-center mt-2 sm:mt-0">
             <label for="total_jobs" class="mr-3">Total Jobs</label>
             {{ totalJobs }}
           </div>
