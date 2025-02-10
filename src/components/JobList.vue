@@ -7,10 +7,11 @@
         <div class="flex justify-between items-center">
         <div class="flex flex-wrap items-center gap-4">
           <div class="flex items-center">
-            <label for="channel" class="mr-3">Channel</label>
-            <select id="channel" v-model="channel" @change="applyFilter" class="border rounded px-2 py-1">
+            <label for="if_remote_possible" class="mr-3">Remote</label>
+            <select id="if_remote_possible" v-model="if_remote_possible" @change="applyFilter" class="border rounded px-2 py-1">
               <option value="">All</option>
-              <option v-for="c in channels" :key="c" :value="c">{{ c }}</option>
+              <option value="true">Yes</option>
+              <option value="false">No</option>
             </select>
           </div>
           <div class="flex items-center">
@@ -36,7 +37,7 @@
         </div>
         <div class="flex">
           <div class="flex items-center">
-            <label for="channel" class="mr-3">Total Jobs</label>
+            <label for="total_jobs" class="mr-3">Total Jobs</label>
             {{ totalJobs }}
           </div>
         </div>
@@ -64,7 +65,6 @@
               <span v-else>Salary Not Available</span>
             </p>
             <p class="text-gray-600 mb-1"><i class="fas fa-code mr-2"></i>Relevance: {{ job.relevance_to_search }}</p>
-            <p class="text-gray-600 mb-1"><i class="fas fa-star mr-2"></i>Search: {{ job.channel }}</p>
             <p class="text-gray-600 mb-1"><i class="fas fa-globe mr-2"></i>Allow Remote: {{ job.if_remote_possible }}
             </p>
             <p class="text-gray-600 mb-1"><i class="fas fa-bullseye mr-2"></i>Search Hit: {{ job.search_hit }}
@@ -106,10 +106,9 @@ export default {
     const loading = ref(true);
     const totalPages = ref(0);
     const states = ref(['SA', 'NSW', 'VIC', 'ACT', 'QLD', 'WA', 'TAS', 'NT']);
-    const channels = ref([]);
     const relevance = ref('');
     const job_location = ref('');
-    const channel = ref('');
+    const if_remote_possible = ref('');
     const keyword = ref('');
     const totalJobs = ref('loading');
 
@@ -142,13 +141,12 @@ export default {
           page: page.value,
           relevance: relevance.value,
           job_location: job_location.value,
-          channel: channel.value,
+          if_remote_possible: if_remote_possible.value,
           keyword: keyword.value,
         });
 
         const response = await apiClient.get(`/jobs?${params.toString()}`);
         jobs.value = response.data.jobs;
-        channels.value = response.data.channels;
         totalPages.value = response.data.totalPages;
         totalJobs.value = response.data.totalJobs;
       } catch (error) {
@@ -178,7 +176,7 @@ export default {
       updateQuery({
         relevance: relevance.value,
         job_location: job_location.value,
-        channel: channel.value,
+        if_remote_possible: if_remote_possible.value,
         keyword: keyword.value,
         page: 1,
       });
@@ -191,10 +189,10 @@ export default {
     };
 
     onMounted(() => {
-      const { relevance: rel, job_location: loc, channel: chan, page: p, keyword: k } = proxy.$route.query;
+      const { relevance: rel, job_location: loc, if_remote_possible: remote, page: p, keyword: k } = proxy.$route.query;
       relevance.value = rel || '';
       job_location.value = loc || '';
-      channel.value = chan || '';
+      if_remote_possible.value = remote || '';
       page.value = p || 1;
       keyword.value = k || '';
       fetchJobs();
@@ -211,10 +209,9 @@ export default {
       loading,
       totalPages,
       states,
-      channels,
       relevance,
       job_location,
-      channel,
+      if_remote_possible,
       totalJobs,
       page,
       fetchJobs,
